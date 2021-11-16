@@ -1,5 +1,6 @@
 package com.quizmanager.quizmanager.services.impl;
 
+import java.util.Optional;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,6 +35,7 @@ public class UserServiceImpl implements UserService{
 			}
 			
 			user.getUserRoles().addAll(userRoles);
+			
 			tempUser = this.userRepository.save(user);
 			
 		}
@@ -52,4 +54,40 @@ public class UserServiceImpl implements UserService{
 		
 	}
 
+	@Override
+	public User updateUser(User user, long id) {
+		User existingUser;
+		Optional<User> optResult = this.userRepository.findById(id);
+		if(optResult.isPresent()) {
+			existingUser = optResult.get();
+			existingUser.setFirstName( user.getFirstName());
+			existingUser.setLastName(user.getLastName());
+			existingUser.setEmail(user.getEmail());
+			existingUser.setPassword(user.getPassword());
+			existingUser.setPhone(user.getPhone());
+			existingUser.setUserRoles(user.getUserRoles());
+			existingUser.setProfile(user.getProfile());
+			existingUser.setEnabled(user.isEnabled());
+			this.userRepository.save(existingUser);
+		}
+		else {
+			existingUser = null;
+		}
+		
+		return existingUser;
+	}
+
+	@Override
+	public User getUserById(long id) {
+		 Optional<User>	 optResult =  this.userRepository.findById(id);
+		 User user;
+		if(optResult.isPresent()) {
+			
+			 user = optResult.get();
+		}
+		else {
+			user= null;
+		}
+		return user;		
+	}
 }

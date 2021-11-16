@@ -40,8 +40,9 @@ public class User {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
 	public User(long id, String userName, String password, String firstName, String lastName, String email,
-			String phone, boolean enabled, String profile) {
+			String phone, boolean enabled, String profile, Set<UserRole> userRoles) {
 		super();
 		this.id = id;
 		this.userName = userName;
@@ -52,7 +53,9 @@ public class User {
 		this.phone = phone;
 		this.enabled = enabled;
 		this.profile = profile;
+		this.userRoles = userRoles;
 	}
+
 
 
 

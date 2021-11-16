@@ -4,10 +4,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -36,9 +39,13 @@ public class UserController {
 		return this.userService.createUser(user, roles);
 	}
 	
-	@GetMapping("/{userName}")
-	public User getUserName(@PathVariable("userName") String userName) {
-		return this.userService.getUserName(userName);
+//	@GetMapping("/{userName}")
+//	public User getUserName(@PathVariable("userName") String userName) {
+//		return this.userService.getUserName(userName);
+//	}
+	@GetMapping("/{userId}")
+	public User getUserById(@PathVariable("userId") long userId) {
+		return this.userService.getUserById(userId);
 	}
 	
 	@DeleteMapping("/{userId}")
@@ -46,9 +53,10 @@ public class UserController {
 		this.userService.deleteUser(userId);
 	}
 	
-	public int updateUser() {
+	@PutMapping("/{userId}")
+	public ResponseEntity<User> updateUser(@RequestBody User user, @PathVariable("userId") long id) {
 		
-		return 0;
+		return new ResponseEntity<User>(this.userService.updateUser(user, id),HttpStatus.OK);
 	}
 	
 }

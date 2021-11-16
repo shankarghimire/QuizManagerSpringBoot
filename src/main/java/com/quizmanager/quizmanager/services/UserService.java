@@ -7,12 +7,18 @@ import com.quizmanager.quizmanager.models.UserRole;
 
 public interface UserService {
 	//Create new user
-	public User createUser(User user, Set<UserRole> userRoles) throws Exception;
+	User createUser(User user, Set<UserRole> userRoles) throws Exception;
 	
 	//Get user by username
-	public User getUserName(String userName);
+	User getUserName(String userName);
+	
+	//Get User by user Id
+	User getUserById(long id);
 	
 	//Delete user by id
-	public void deleteUser(Long userId);
+	void deleteUser(Long userId);
+	
+	//Update User by Id
+	User updateUser(User user, long id);
 
 }
